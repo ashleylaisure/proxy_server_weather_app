@@ -11,10 +11,21 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather?'
 
 app.get('/weather/:city', async (req, res) => {
     const {city} = req.params;
-    const queryString = `q=${city}`;
-    const apiRes = await fetch(BASE_URL + queryString + API_KEY)
-    const data = await apiRes.json()
-    res.json(data)
+
+    if (!isNaN(city) && !isNaN(parseFloat(city))) {
+        const queryString = `zip=${city}`
+        const apiRes = await fetch(BASE_URL + queryString + API_KEY)
+        const data = await apiRes.json()
+        res.json(data)
+        
+    } else {
+        const queryString = `q=${city}`;
+        const apiRes = await fetch(BASE_URL + queryString + API_KEY)
+        const data = await apiRes.json()
+        res.json(data)
+    }
+
+    
 })
 
 app.listen(3000, () => {
