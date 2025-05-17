@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 require('dotenv').config();
+const fetch = require('node-fetch')
 
 // --- Recommended Detailed CORS Configuration ---
 const allowedOrigins = [
@@ -32,14 +33,14 @@ app.get('/weather/:city', async (req, res) => {
     const {city} = req.params;
 
     if (!isNaN(city) && !isNaN(parseFloat(city))) {
-        const queryString = `zip=${city}`
-        const apiRes = await fetch(BASE_URL + queryString + API_KEY)
+        const queryString = `zip=${city}&units=imperial&appid=${API_KEY}`
+        const apiRes = await fetch(BASE_URL + queryString)
         const data = await apiRes.json()
         res.json(data)
         
     } else {
-        const queryString = `q=${city}`;
-        const apiRes = await fetch(BASE_URL + queryString + API_KEY)
+        const queryString = `q=${city}&units=imperial&appid=${API_KEY}`;
+        const apiRes = await fetch(BASE_URL + queryString)
         const data = await apiRes.json()
         res.json(data)
     }
