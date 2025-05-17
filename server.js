@@ -47,6 +47,8 @@ app.get('/weather/:city', async (req, res) => {
     
 })
 
-app.listen(3000, () => {
-    console.log('listening on port 3000...')
-})
+// CRITICAL FIX FOR HEROKU: Use process.env.PORT
+const PORT = process.env.PORT || 3000; // Use Heroku's port or 3000 locally
+app.listen(PORT, () => {
+    console.log(`Server is running on Port ${PORT}.`); // Log the correct port
+});
