@@ -2,11 +2,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 require('dotenv').config();
-const fetch = require('node-fetch')
 
 // --- Recommended Detailed CORS Configuration ---
 const allowedOrigins = [
-    "https://local-weather-ap.netlify.app", 'http://localhost:5173', 'http://localhost:3000',
+    "https://local-weather-ap.netlify.app", 'http://localhost:5173/', 'http://localhost:3000/',
     // Add local dev URL if needed: 'http://localhost:3000',
 ];
 const corsOptions = {
@@ -25,6 +24,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); // Apply detailed CORS options
 
+// app.use(cors());
 
 const API_KEY = process.env.API_KEY
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather?'
@@ -53,3 +53,7 @@ const PORT = process.env.PORT || 3000; // Use Heroku's port or 3000 locally
 app.listen(PORT, () => {
     console.log(`Server is running on Port ${PORT}.`); // Log the correct port
 });
+
+// app.listen(3000, () => {
+//     console.log('listening on port 3000...')
+// })
